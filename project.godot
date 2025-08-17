@@ -13,3 +13,11 @@ config_version=5
 config/name="godot-intro-multiplayer-ref"
 run/main_scene="uid://wdtx61fmwthf"
 config/features=PackedStringArray("4.4", "Forward Plus")
+boot_splash/image="uid://dyh6r887he05y"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/resizable=false
+window/size/always_on_top=true
