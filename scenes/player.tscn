@@ -1,13 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8lhimkedr6pn"]
+[gd_scene load_steps=9 format=3 uid="uid://c8lhimkedr6pn"]
 
 [ext_resource type="Script" uid="uid://cnirl4fbcu71k" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="SpriteFrames" uid="uid://djepmkigcjqks" path="res://assets/ship_sprite_frames.tres" id="2_g2els"]
 [ext_resource type="Script" uid="uid://bhsaax8jly61e" path="res://scripts/player_input.gd" id="3_qhqgy"]
+[ext_resource type="Script" uid="uid://djmkaq8jm51v3" path="res://scripts/weapon.gd" id="4_dqkch"]
+[ext_resource type="PackedScene" uid="uid://cc3hgxo55hou7" path="res://scenes/projectile.tscn" id="5_qlg0r"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_g2els"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
+properties/1/path = NodePath(".:selected_ship")
+properties/1/spawn = true
+properties/1/replication_mode = 0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qhqgy"]
 radius = 50.0
@@ -18,10 +23,11 @@ properties/0/path = NodePath("PlayerInput:input_dir")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_input", "input_synchronizer")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_input", "input_synchronizer", "player_sprite")]
 script = ExtResource("1_3vyb7")
 player_input = NodePath("PlayerInput")
 input_synchronizer = NodePath("PlayerInput/InputSynchronizer")
+player_sprite = NodePath("AnimatedSprite2D")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_g2els")
@@ -32,8 +38,8 @@ shape = SubResource("CapsuleShape2D_qhqgy")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("2_g2els")
+animation = &"ship2"
 autoplay = "default"
-frame_progress = 0.986209
 
 [node name="PlayerInput" type="Node" parent="."]
 script = ExtResource("3_qhqgy")
@@ -42,3 +48,16 @@ script = ExtResource("3_qhqgy")
 root_path = NodePath("../..")
 replication_config = SubResource("SceneReplicationConfig_qhqgy")
 public_visibility = false
+
+[node name="Weapon" type="Node2D" parent="." node_paths=PackedStringArray("player_input", "projectile_spawn_path")]
+script = ExtResource("4_dqkch")
+player_input = NodePath("../PlayerInput")
+projectile = ExtResource("5_qlg0r")
+projectile_spawn_path = NodePath("../Projectiles")
+
+[node name="ProjectileSpawner" type="MultiplayerSpawner" parent="Weapon"]
+_spawnable_scenes = PackedStringArray("uid://cc3hgxo55hou7")
+spawn_path = NodePath("../../Projectiles")
+
+[node name="Projectiles" type="Node2D" parent="."]
+top_level = true
