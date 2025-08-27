@@ -15,6 +15,10 @@ run/main_scene="uid://wdtx61fmwthf"
 config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/image="uid://dyh6r887he05y"
 
+[autoload]
+
+NetworkManager="*res://scripts/network/network_manager.gd"
+
 [display]
 
 window/size/viewport_width=1920
