@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cc3hgxo55hou7"]
+[gd_scene load_steps=6 format=3 uid="uid://cc3hgxo55hou7"]
 
 [ext_resource type="Script" uid="uid://ddkhweotm8c4d" path="res://scripts/projectile.gd" id="1_c8fcr"]
 [ext_resource type="SpriteFrames" uid="uid://cuo2tavbvbfcv" path="res://assets/projectile_sprite_frames.tres" id="2_q3m7n"]
+[ext_resource type="Script" uid="uid://s5sn2tc115ng" path="res://scripts/components/hitbox_component.gd" id="3_softn"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_q3m7n"]
 properties/0/path = NodePath(".:position")
@@ -18,7 +19,7 @@ properties/2/replication_mode = 0
 radius = 26.69
 height = 180.59
 
-[node name="Projectile" type="Area2D" node_paths=PackedStringArray("projectile_sprite")]
+[node name="Projectile" type="Node2D" node_paths=PackedStringArray("projectile_sprite")]
 script = ExtResource("1_c8fcr")
 projectile_sprite = NodePath("AnimatedSprite2D")
 
@@ -32,8 +33,10 @@ autoplay = "default"
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="HitboxComponent" type="Area2D" parent="."]
+script = ExtResource("3_softn")
+metadata/_custom_type_script = "uid://s5sn2tc115ng"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_q3m7n")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]

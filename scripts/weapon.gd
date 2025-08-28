@@ -15,7 +15,7 @@ func _weapon_fired():
 @rpc("any_peer", "call_local")
 func _spawn_projectile():
 	if is_multiplayer_authority():
-		var projectile_scene = projectile.instantiate() as Area2D
+		var projectile_scene = projectile.instantiate() as Node2D
 		projectile_scene.global_transform = _parent_player.global_transform.translated(Vector2(0, 18))
 		projectile_scene.fired_by_name = _parent_player.name
 	

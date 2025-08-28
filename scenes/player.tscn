@@ -1,10 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://c8lhimkedr6pn"]
+[gd_scene load_steps=14 format=3 uid="uid://c8lhimkedr6pn"]
 
 [ext_resource type="Script" uid="uid://cnirl4fbcu71k" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="SpriteFrames" uid="uid://djepmkigcjqks" path="res://assets/ship_sprite_frames.tres" id="2_g2els"]
 [ext_resource type="Script" uid="uid://bhsaax8jly61e" path="res://scripts/player_input.gd" id="3_qhqgy"]
 [ext_resource type="Script" uid="uid://djmkaq8jm51v3" path="res://scripts/weapon.gd" id="4_dqkch"]
 [ext_resource type="PackedScene" uid="uid://cc3hgxo55hou7" path="res://scenes/projectile.tscn" id="5_qlg0r"]
+[ext_resource type="Script" uid="uid://dash6tjwn1c6" path="res://scripts/components/hurt_component.gd" id="6_fjrip"]
+[ext_resource type="Script" uid="uid://pomul4e5d0i1" path="res://scripts/components/attribute_component.gd" id="6_smehm"]
+[ext_resource type="Script" uid="uid://bd52tlm3o3hqg" path="res://scripts/components/hurtbox_component.gd" id="7_smehm"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_g2els"]
 properties/0/path = NodePath(".:position")
@@ -13,32 +16,44 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:selected_ship")
 properties/1/spawn = true
 properties/1/replication_mode = 0
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qhqgy"]
-radius = 50.0
-height = 250.0
+properties/2/path = NodePath("AttributeComponent:health")
+properties/2/spawn = true
+properties/2/replication_mode = 2
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qhqgy"]
 properties/0/path = NodePath("PlayerInput:input_dir")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_input", "input_synchronizer", "player_sprite")]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qhqgy"]
+radius = 50.0
+height = 250.0
+
+[sub_resource type="Gradient" id="Gradient_smehm"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ur7pv"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_smehm")
+width = 100
+height = 8
+fill_from = Vector2(0.00206825, 0.0775595)
+
+[node name="Player" type="Node2D" node_paths=PackedStringArray("player_input", "input_synchronizer", "player_sprite", "attribute_component", "health_bar")]
 script = ExtResource("1_3vyb7")
 player_input = NodePath("PlayerInput")
 input_synchronizer = NodePath("PlayerInput/InputSynchronizer")
 player_sprite = NodePath("AnimatedSprite2D")
+attribute_component = NodePath("AttributeComponent")
+health_bar = NodePath("HealthBarContainer/HealthBar")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_g2els")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_qhqgy")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("2_g2els")
-animation = &"ship2"
 autoplay = "default"
 
 [node name="PlayerInput" type="Node" parent="."]
@@ -61,3 +76,53 @@ spawn_path = NodePath("../../Projectiles")
 
 [node name="Projectiles" type="Node2D" parent="."]
 top_level = true
+
+[node name="AttributeComponent" type="Node" parent="."]
+script = ExtResource("6_smehm")
+metadata/_custom_type_script = "uid://pomul4e5d0i1"
+
+[node name="HurtboxComponent" type="Area2D" parent="."]
+script = ExtResource("7_smehm")
+metadata/_custom_type_script = "uid://bd52tlm3o3hqg"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_qhqgy")
+
+[node name="HurtComponent" type="Node" parent="." node_paths=PackedStringArray("hurtbox_component", "attribute_component")]
+script = ExtResource("6_fjrip")
+hurtbox_component = NodePath("../HurtboxComponent")
+attribute_component = NodePath("../AttributeComponent")
+metadata/_custom_type_script = "uid://dash6tjwn1c6"
+
+[node name="HealthBarContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -55.0
+offset_top = 37.0
+offset_right = 45.0
+offset_bottom = 77.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+
+[node name="HealthBar" type="TextureProgressBar" parent="HealthBarContainer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = 20.0
+offset_right = 50.0
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+max_value = 5.0
+value = 5.0
+texture_progress = SubResource("GradientTexture2D_ur7pv")
