@@ -18,6 +18,7 @@ boot_splash/image="uid://dyh6r887he05y"
 [autoload]
 
 NetworkManager="*res://scripts/network/network_manager.gd"
+MatchManager="*res://scripts/multiplayer/match_manager.gd"
 
 [display]
 

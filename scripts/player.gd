@@ -26,9 +26,10 @@ func _ready() -> void:
 	
 	if is_multiplayer_authority():
 		attribute_component.no_health.connect(_player_no_health)
+		MatchManager.game_restarted.connect(reset_player)
 	
 func _physics_process(delta: float) -> void:
-	if get_tree().get_multiplayer().has_multiplayer_peer() and is_multiplayer_authority():
+	if get_tree().get_multiplayer().has_multiplayer_peer() and is_multiplayer_authority() and not MatchManager.game_paused:
 		var direction := player_input.input_dir
 		if direction:
 			_velocity.x = direction.x * SPEED
@@ -48,12 +49,13 @@ func _health_changed():
 	
 func _player_no_health():
 	print("Player died")
+	MatchManager.player_died(name)
 	await get_tree().create_timer(1).timeout
 	reset_player()
 	
 func reset_player():
 	attribute_component.reset_health()
-	
+
 	
 	
 	

@@ -15,12 +15,16 @@ func _ready() -> void:
 func _peer_connected(network_id):
 	print("Peer connected: %s" % network_id)
 	_add_player_to_game(network_id)
+	
+	MatchManager.restart_match()
 
 func _peer_disconnected(network_id):
 	print("Peer disconnected: %s" % network_id)
 	var player_to_remove = spawn_path.find_child(str(network_id), false, false)
 	if player_to_remove:
 		player_to_remove.queue_free()
+	
+	MatchManager.player_left_game(str(network_id))
 
 func _add_player_to_game(network_id: int):
 
@@ -34,5 +38,7 @@ func _add_player_to_game(network_id: int):
 	else:
 		player_to_add.global_transform = Transform2D(0, Vector2(randi_range(1400, 1600), randi_range(50, 570)))
 		player_to_add.selected_ship = player_to_add.ship_types[1]
-		
+	
+	MatchManager.add_player_to_score_keeping(str(network_id))
+	
 	spawn_path.add_child(player_to_add)
