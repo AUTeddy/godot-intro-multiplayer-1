@@ -10,9 +10,9 @@ config_version=5
 
 [application]
 
-config/name="godot-intro-multiplayer-ref"
+config/name="godot-intro-multiplayer-1"
 run/main_scene="uid://wdtx61fmwthf"
-config/features=PackedStringArray("4.4", "Forward Plus")
+config/features=PackedStringArray("4.5", "Forward Plus")
 boot_splash/image="uid://dyh6r887he05y"
 
 [autoload]
