@@ -39,3 +39,12 @@ text = "Host Game"
 layout_mode = 2
 theme_override_font_sizes/font_size = 56
 text = "Join Game"
+
+[node name="SendTestMessage" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 56
+text = "Send Test Message"
+
+[connection signal="pressed" from="Panel/VBoxContainer/HostGame" to="." method="_on_host_game_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/JoinGame" to="." method="_on_join_game_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/SendTestMessage" to="." method="_on_send_test_message_pressed"]

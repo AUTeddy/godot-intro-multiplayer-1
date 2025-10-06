@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bg3v5iaxu06m4"]
+
+[ext_resource type="Script" uid="uid://ddujdd0hgmxhj" path="res://scripts/multiplayer/spawn_manager.gd" id="1_oxkht"]
+
+[node name="SpawnManager" type="Node"]
+script = ExtResource("1_oxkht")
+metadata/_custom_type_script = "uid://ddujdd0hgmxhj"
