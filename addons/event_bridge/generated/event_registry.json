@@ -31,6 +31,15 @@
 			"target": "to_server",
 			"transfer_channel": 0,
 			"transfer_mode": "reliable"
+		},
+		{
+			"args": [],
+			"mode": "authority",
+			"name": "play_again",
+			"sync": "call_local",
+			"target": "to_server",
+			"transfer_channel": 0,
+			"transfer_mode": "reliable"
 		}
 	],
 	"MainMenu": [

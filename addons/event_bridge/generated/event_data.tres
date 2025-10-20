@@ -26,6 +26,12 @@ categories = {
 "name": "game_over",
 "sync": "call_remote",
 "target": "to_server"
+}, {
+"args": [],
+"mode": "authority",
+"name": "play_again",
+"sync": "call_local",
+"target": "to_server"
 }],
 "MainMenu": [{
 "args": [{
@@ -38,6 +44,6 @@ categories = {
 }
 category_order = ["MainMenu", "Game"]
 event_orders = {
-"Game": ["report_score", "game_over"],
+"Game": ["report_score", "game_over", "play_again"],
 "MainMenu": ["send_test_message"]
 }

@@ -11,6 +11,7 @@ var game_paused = false
 var _player_scores = {}
 
 func _ready() -> void:
+	EventManager.on_game_play_again(_play_again)
 	EventManager.on_game_game_over(_game_over)
 
 func player_died(killed_player_name: String):
@@ -39,7 +40,7 @@ func _game_over(winning_player_name: String, final_scores):
 	scores_updated.emit(final_scores)
 	game_ended.emit(winning_player_name)
 
-@rpc("authority", "call_local", "reliable")
+#@rpc("authority", "call_local", "reliable")
 func _play_again():
 	game_restarted.emit()
 	game_paused = false
@@ -50,7 +51,8 @@ func _reset_scores():
 
 func restart_match():
 	_reset_scores()
-	_play_again.rpc()
+	#_play_again.rpc()
+	EventManager.game_play_again()
 
 func add_player_to_score_keeping(player_name: String):
 	_player_scores[player_name] = 0

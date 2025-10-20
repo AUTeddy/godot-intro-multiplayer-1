@@ -82,6 +82,28 @@ func on_game_game_over(callback: Callable) -> void:
 func off_game_game_over(callback: Callable) -> void:
 	Game.off("game_over", callback)
 
+## Event: Game::play_again ---[br]
+## Target: to_server | Mode: authority | Sync: call_local | Transfer: reliable | Channel: 0 [br][br]
+## Usage (emit): [br]
+##     EventManager.game_play_again()
+func game_play_again() -> void:
+	Game.to_server("play_again", [])
+
+# Subscribe with callback signature: func() -> void
+## Usage (subscribe):[br]
+##     var cb := func() -> void:
+##     EventManager.on_game_play_again(cb)[br]
+##     [br]Later, to unsubscribe (keep the same Callable reference):[br]
+##     EventManager.off_game_play_again(cb)
+##     [br][br]One-liner subscribe example:[br]
+##     EventManager.on_game_play_again(func() -> void: print("game_play_again fired"))[br]
+func on_game_play_again(callback: Callable) -> void:
+	Game.on("play_again", callback)
+
+# Unsubscribe the same Callable you used in on_game_play_again
+func off_game_play_again(callback: Callable) -> void:
+	Game.off("play_again", callback)
+
 # --- Disconnect all handlers across all namespaces ---
 func off_all() -> void:
 	for ns in ["MainMenu", "Game"]:
