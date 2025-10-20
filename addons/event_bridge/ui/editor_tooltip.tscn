@@ -1,0 +1,68 @@
+[gd_scene load_steps=6 format=3 uid="uid://tot4omalejfn"]
+
+[sub_resource type="SystemFont" id="SystemFont_mmybh"]
+font_names = PackedStringArray("Sans-Serif")
+font_weight = 700
+subpixel_positioning = 0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5gi8l"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.121569, 0.121569, 0.121569, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mmybh"]
+content_margin_left = 5.0
+content_margin_top = 0.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.133333, 0.133333, 0.133333, 1)
+border_width_bottom = 2
+border_color = Color(0.337255, 0.619608, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mmybh"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+
+[sub_resource type="Theme" id="Theme_5gi8l"]
+Label/colors/font_color = Color(0.337255, 0.619608, 1, 1)
+Label/fonts/font = SubResource("SystemFont_mmybh")
+Label/styles/normal = SubResource("StyleBoxFlat_5gi8l")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_mmybh")
+RichTextLabel/constants/line_separation = 4
+RichTextLabel/styles/normal = SubResource("StyleBoxEmpty_mmybh")
+
+[node name="Tooltip" type="PanelContainer"]
+z_index = 999
+custom_minimum_size = Vector2(400, 150)
+offset_right = 400.0
+offset_bottom = 150.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_5gi8l")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="ToolTipTitle" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Headline"
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ToolTipBody" type="RichTextLabel" parent="VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "Content"
+fit_content = true

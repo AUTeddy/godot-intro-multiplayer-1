@@ -8,6 +8,10 @@
 
 config_version=5
 
+[addons]
+
+event_bridge/debug=false
+
 [application]
 
 config/name="godot-intro-multiplayer-1"
@@ -19,6 +23,8 @@ boot_splash/image="uid://dyh6r887he05y"
 
 NetworkManager="*res://scripts/network/network_manager.gd"
 MatchManager="*res://scripts/multiplayer/match_manager.gd"
+EventBus="*res://addons/event_bridge/autoload/event_bus.gd"
+EventBridgeLogger="*res://addons/event_bridge/autoload/event_bridge_logger.gd"
 
 [display]
 
@@ -26,6 +32,10 @@ window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/resizable=false
 window/size/always_on_top=true
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/event_bridge/plugin.cfg")
 
 [input]
 

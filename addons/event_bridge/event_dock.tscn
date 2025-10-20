@@ -1,0 +1,604 @@
+[gd_scene load_steps=17 format=3 uid="uid://dc8mfm1dnpvqs"]
+
+[ext_resource type="Script" uid="uid://b8yhf171b255w" path="res://addons/event_bridge/event_dock.gd" id="1_l4p6n"]
+[ext_resource type="Script" uid="uid://dmn4kwyq02h4u" path="res://addons/event_bridge/ui/editor_tooltip.gd" id="11_d1uba"]
+
+[sub_resource type="DPITexture" id="DPITexture_oy6mx"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#e0e0e0\" d=\"M2 1v14h8v-1H8v-4h2V8h4V6H9V1zm8 0v4h4z\"/><path fill=\"#5fff97\" d=\"M11 9v2H9v2h2v2h2v-2h2v-2h-2V9z\"/></svg>
+"
+base_scale = 1.5
+saturation = 2.0
+color_map = {
+Color(1, 0.37254903, 0.37254903, 1): Color(1, 0.47, 0.42, 1),
+Color(0.37254903, 1, 0.5921569, 1): Color(0.45, 0.95, 0.5, 1),
+Color(1, 0.8666667, 0.39607844, 1): Color(1, 0.87, 0.4, 1)
+}
+
+[sub_resource type="DPITexture" id="DPITexture_qvquv"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"10\" height=\"10\"><circle cx=\"5\" cy=\"5\" r=\"5\" fill-opacity=\".294\"/><circle cx=\"5\" cy=\"5\" r=\"4\" fill=\"#474747\"/><path fill=\"#5fff97\" d=\"m4 2v2h-2v2h2v2h2v-2h2v-2h-2v-2z\"/></svg>
+"
+base_scale = 1.5
+saturation = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d1uba"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 0.196078)
+
+[sub_resource type="SystemFont" id="SystemFont_fyaew"]
+font_names = PackedStringArray("", "Sans-Serif")
+font_weight = 700
+subpixel_positioning = 0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g7ni2"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0, 0.619608, 0.298039, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5mlbl"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(4.33177e-07, 0.434359, 0.201094, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="DPITexture" id="DPITexture_4f7vc"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#e0e0e0\" d=\"m7 1v6h-6v2h6v6h2v-6h6v-2h-6v-6z\"/></svg>
+"
+base_scale = 1.5
+saturation = 2.0
+color_map = {
+Color(1, 0.37254903, 0.37254903, 1): Color(1, 0.47, 0.42, 1),
+Color(0.37254903, 1, 0.5921569, 1): Color(0.45, 0.95, 0.5, 1),
+Color(1, 0.8666667, 0.39607844, 1): Color(1, 0.87, 0.4, 1)
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fyaew"]
+bg_color = Color(0, 0, 0, 0.176471)
+
+[sub_resource type="DPITexture" id="DPITexture_8j2oj"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#5fff97\" d=\"m9 3v2h4v6h-4v2h4 2v-10h-2zm-3 1v3h-5v2h5v3l2.5-2 2.5-2-2.5-2z\"/></svg>
+"
+base_scale = 1.5
+saturation = 2.0
+color_map = {
+Color(1, 0.37254903, 0.37254903, 1): Color(1, 0.47, 0.42, 1),
+Color(0.37254903, 1, 0.5921569, 1): Color(0.45, 0.95, 0.5, 1),
+Color(1, 0.8666667, 0.39607844, 1): Color(1, 0.87, 0.4, 1)
+}
+
+[sub_resource type="DPITexture" id="DPITexture_l4p6n"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#ff5f5f\" d=\"m1 3v10h2 4v-2h-4v-6h4v-2h-4zm9 1v3h-5v2h5v3l2.5-2 2.5-2-2.5-2z\"/></svg>
+"
+base_scale = 1.5
+saturation = 2.0
+color_map = {
+Color(1, 0.37254903, 0.37254903, 1): Color(1, 0.47, 0.42, 1),
+Color(0.37254903, 1, 0.5921569, 1): Color(0.45, 0.95, 0.5, 1),
+Color(1, 0.8666667, 0.39607844, 1): Color(1, 0.87, 0.4, 1)
+}
+
+[sub_resource type="DPITexture" id="DPITexture_m874m"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#e0e0e0\" d=\"M6 1a1 1 0 0 0 0 2 8 8 0 0 1 8 8 1 1 0 0 0 2 0A10 10 0 0 0 6 1zm0 4a1 1 0 0 0 0 2 4 4 0 0 1 4 4 1 1 0 0 0 2 0 6 6 0 0 0-6-6zm0 4a2 2 0 0 0 0 4 2 2 0 0 0 0-4zm-5 2a1 1 0 0 0 0 2 1 1 0 0 0 0-2z\"/></svg>
+"
+base_scale = 1.5
+saturation = 2.0
+color_map = {
+Color(1, 0.37254903, 0.37254903, 1): Color(1, 0.47, 0.42, 1),
+Color(0.37254903, 1, 0.5921569, 1): Color(0.45, 0.95, 0.5, 1),
+Color(1, 0.8666667, 0.39607844, 1): Color(1, 0.87, 0.4, 1)
+}
+
+[sub_resource type="DPITexture" id="DPITexture_tpc74"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#e0e0e0\" d=\"M6 0a1 1 0 0 0 0 2 8 8 0 0 1 8 8 1 1 0 0 0 2 0A10 10 0 0 0 6 0zm0 4a1 1 0 0 0 0 2 4 4 0 0 1 4 4 1 1 0 0 0 2 0 6 6 0 0 0-6-6zM1 8a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1zm1 2h4v4H2z\"/></svg>
+"
+base_scale = 1.5
+saturation = 2.0
+color_map = {
+Color(1, 0.37254903, 0.37254903, 1): Color(1, 0.47, 0.42, 1),
+Color(0.37254903, 1, 0.5921569, 1): Color(0.45, 0.95, 0.5, 1),
+Color(1, 0.8666667, 0.39607844, 1): Color(1, 0.87, 0.4, 1)
+}
+
+[sub_resource type="DPITexture" id="DPITexture_wema8"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#e0e0e0\" d=\"m7 1c-.554 0-1 .446-1 1v2h4v-2c0-.554-.446-1-1-1zm-1 4v7l2 3 2-3v-7zm1 1h1v5h-1z\"/></svg>
+"
+base_scale = 1.5
+saturation = 2.0
+color_map = {
+Color(1, 0.37254903, 0.37254903, 1): Color(1, 0.47, 0.42, 1),
+Color(0.37254903, 1, 0.5921569, 1): Color(0.45, 0.95, 0.5, 1),
+Color(1, 0.8666667, 0.39607844, 1): Color(1, 0.87, 0.4, 1)
+}
+
+[sub_resource type="DPITexture" id="DPITexture_05wib"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#e0e0e0\" d=\"m5 1v1h-4v2h14v-2h-4v-1zm-3 4v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-8zm1 2h2v6h-2zm4 0h2v6h-2zm4 0h2v6h-2z\"/></svg>
+"
+base_scale = 1.5
+saturation = 2.0
+color_map = {
+Color(1, 0.37254903, 0.37254903, 1): Color(1, 0.47, 0.42, 1),
+Color(0.37254903, 1, 0.5921569, 1): Color(0.45, 0.95, 0.5, 1),
+Color(1, 0.8666667, 0.39607844, 1): Color(1, 0.87, 0.4, 1)
+}
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l4p6n")
+
+[node name="Event Bridge" type="VBoxContainer" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EventBridgeTabContainer" type="TabContainer" parent="Event Bridge"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+current_tab = 0
+
+[node name="Events" type="VSplitContainer" parent="Event Bridge/EventBridgeTabContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+metadata/_tab_index = 0
+
+[node name="Event Tree" type="Control" parent="Event Bridge/EventBridgeTabContainer/Events"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Event Bridge/EventBridgeTabContainer/Events/Event Tree"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+follow_focus = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Event Bridge/EventBridgeTabContainer/Events/Event Tree/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Event Bridge/EventBridgeTabContainer/Events/Event Tree/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Generate Registry" type="Button" parent="Event Bridge/EventBridgeTabContainer/Events/Event Tree/ScrollContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Generate Registry File"
+text = "Generate"
+icon = SubResource("DPITexture_oy6mx")
+
+[node name="Load JSON" type="Button" parent="Event Bridge/EventBridgeTabContainer/Events/Event Tree/ScrollContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Load JSON"
+
+[node name="Debug" type="CheckBox" parent="Event Bridge/EventBridgeTabContainer/Events/Event Tree/ScrollContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Debug"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Event Bridge/EventBridgeTabContainer/Events/Event Tree/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Control" type="Control" parent="Event Bridge/EventBridgeTabContainer/Events/Event Tree/ScrollContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Category" type="Button" parent="Event Bridge/EventBridgeTabContainer/Events/Event Tree/ScrollContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Category"
+icon = SubResource("DPITexture_qvquv")
+
+[node name="Event" type="Button" parent="Event Bridge/EventBridgeTabContainer/Events/Event Tree/ScrollContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Event"
+icon = SubResource("DPITexture_qvquv")
+
+[node name="Event Categories & Events" type="Tree" parent="Event Bridge/EventBridgeTabContainer/Events/Event Tree/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/parent_hl_line_color = Color(1, 0, 0, 1)
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 5
+theme_override_styles/panel = SubResource("StyleBoxFlat_d1uba")
+columns = 2
+column_titles_visible = true
+hide_root = true
+auto_tooltip = false
+
+[node name="Event Details" type="Control" parent="Event Bridge/EventBridgeTabContainer/Events"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Event Bridge/EventBridgeTabContainer/Events/Event Details"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+follow_focus = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Event Bridge/EventBridgeTabContainer/Events/Event Details/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="Event Bridge/EventBridgeTabContainer/Events/Event Details/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="AddArgsContainer" type="HBoxContainer" parent="Event Bridge/EventBridgeTabContainer/Events/Event Details/ScrollContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Add Arg" type="Button" parent="Event Bridge/EventBridgeTabContainer/Events/Event Details/ScrollContainer/VBoxContainer/MarginContainer/AddArgsContainer"]
+unique_name_in_owner = true
+clip_contents = true
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+tooltip_text = "Here you can add your arguments"
+theme_override_fonts/font = SubResource("SystemFont_fyaew")
+theme_override_styles/normal = SubResource("StyleBoxFlat_g7ni2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_g7ni2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5mlbl")
+text = "Arg"
+icon = SubResource("DPITexture_4f7vc")
+alignment = 0
+
+[node name="LineEdit" type="LineEdit" parent="Event Bridge/EventBridgeTabContainer/Events/Event Details/ScrollContainer/VBoxContainer/MarginContainer/AddArgsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "You are editing this event now"
+editable = false
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Event Bridge/EventBridgeTabContainer/Events/Event Details/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_fyaew")
+
+[node name="MarginContainer" type="MarginContainer" parent="Event Bridge/EventBridgeTabContainer/Events/Event Details/ScrollContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ArgsList" type="VBoxContainer" parent="Event Bridge/EventBridgeTabContainer/Events/Event Details/ScrollContainer/VBoxContainer/ScrollContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Event Bridge/EventBridgeTabContainer/Events/Event Details/ScrollContainer/VBoxContainer"]
+editor_description = "## description bbcode supported
+## [b] [i] [s] [u]
+## [color=#ff0000]{text}[/color]
+## [code]
+## [img]{path}[/img]
+## [br]
+## [center]"
+layout_mode = 2
+
+[node name="TargetLabel" type="Label" parent="Event Bridge/EventBridgeTabContainer/Events/Event Details/ScrollContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(225, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = " "
+mouse_filter = 0
+text = "Target: "
+script = ExtResource("11_d1uba")
+tooltip_title = "Target Settings"
+tooltip_bbcode = "Where the remote call goes (used with [b]call_remote[/b]).
+
+[p]• [b]emit_local[/b] — run only here (no network)[/p]
+[p]• [b]to_server[/b] — send to the server[/p]
+[p]• [b]to_all[/b] — broadcast to all peers[/p]
+[p]• [b]to_id[/b] — send to a specific peer[/p]
+
+[b][color=#FFCD23]Notes[/color][/b]
+[p]• With [b]to_id[/b], the handler usually includes a [b]peer_id: int[/b] to select the recipient[/p]
+[p]• Broadcasting high-rate data to [b]to_all[/b] can be expensive; prefer snapshots or deltas[/p]
+
+[code]
+# Example (plugin-style):
+func welcome_to_client(msg: String, peer_id: int) -> void:
+    Server.to_id(peer_id, \"welcome_to_client\", [msg])
+[/code]
+"
+width = 350.0
+max_height = 320.0
+
+[node name="Target" type="OptionButton" parent="Event Bridge/EventBridgeTabContainer/Events/Event Details/ScrollContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TARGET_TT"
+selected = 0
+item_count = 4
+popup/item_0/text = "emit_local"
+popup/item_0/icon = SubResource("DPITexture_8j2oj")
+popup/item_0/id = 0
+popup/item_1/text = "to_server"
+popup/item_1/icon = SubResource("DPITexture_l4p6n")
+popup/item_1/id = 1
+popup/item_2/text = "to_id"
+popup/item_2/icon = SubResource("DPITexture_m874m")
+popup/item_2/id = 2
+popup/item_3/text = "to_all"
+popup/item_3/icon = SubResource("DPITexture_tpc74")
+popup/item_3/id = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Event Bridge/EventBridgeTabContainer/Events/Event Details/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ModeLabel" type="Label" parent="Event Bridge/EventBridgeTabContainer/Events/Event Details/ScrollContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(225, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = " "
+mouse_filter = 0
+text = "Mode: "
+script = ExtResource("11_d1uba")
+tooltip_title = "Mode Settings"
+tooltip_bbcode = "Who is allowed to call this event.
+
+[p]• [b]authority[/b] — only the node that owns network authority may call it (server for server-owned nodes; a specific client for client-owned nodes)[/p]
+[p]• [b]any_peer[/b] — any connected peer may call (subject to Sync/Target)[/p]
+
+[b][color=#FFCD23]Notes[/color][/b]
+Use [b]authority[/b] for privileged actions (kicks, spawns, state writes). Use [b]any_peer[/b] for inputs/requests
+"
+width = 350.0
+max_height = 320.0
+
+[node name="Mode" type="OptionButton" parent="Event Bridge/EventBridgeTabContainer/Events/Event Details/ScrollContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "MODE_TT"
+selected = 0
+item_count = 2
+popup/item_0/text = "authority"
+popup/item_0/id = 0
+popup/item_1/text = "any_peer"
+popup/item_1/id = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Event Bridge/EventBridgeTabContainer/Events/Event Details/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "How the call happens: call_remote sends over the network; call_local runs only on this machine. emit_local requires call_local."
+
+[node name="SyncLabel" type="Label" parent="Event Bridge/EventBridgeTabContainer/Events/Event Details/ScrollContainer/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(225, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = " "
+mouse_filter = 0
+text = "Sync: "
+script = ExtResource("11_d1uba")
+tooltip_title = "Sync Settigns"
+tooltip_bbcode = "How the event executes.
+
+[p]• [b]call_local[/b] — run only on this machine (no network)[/p]
+[p]• [b]call_remote[/b] — send via RPC according to [i]Target[/i][/p]
+
+[b][color=#FFCD23]Notes[/color][/b]
+[p]• [b]emit_local[/b] must use [b]call_local[/b][/p]
+[p]• Network targets ([i]to_server/to_all/to_id[/i]) use [b]call_remote[/b][/p]
+"
+width = 350.0
+max_height = 320.0
+
+[node name="Sync" type="OptionButton" parent="Event Bridge/EventBridgeTabContainer/Events/Event Details/ScrollContainer/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "SYNC_TT"
+selected = 0
+item_count = 2
+popup/item_0/text = "call_remote"
+popup/item_0/id = 0
+popup/item_1/text = "call_local"
+popup/item_1/id = 1
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Event Bridge/EventBridgeTabContainer/Events/Event Details/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TransferModeLabel" type="Label" parent="Event Bridge/EventBridgeTabContainer/Events/Event Details/ScrollContainer/VBoxContainer/HBoxContainer4"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(225, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = " "
+mouse_filter = 0
+text = "Transfer Mode: "
+script = ExtResource("11_d1uba")
+tooltip_title = "Transfer Mde Settings"
+tooltip_bbcode = "Delivery guarantees & ordering
+
+[p]• [b]reliable[/b] — guaranteed delivery; ordered per channel[/p]
+[p]• [b]unreliable[/b] — may drop; no ordering; best for state that supersedes itself (positions)[/p]
+[p]• [b]unreliable_ordered[/b] — may drop; [i]order enforced per channel[/i]; loss may cause later packets on the same channel to drop to keep order[/p]
+
+[b][color=#FFCD23]Notes[/color][/b]
+
+[p]• Use [b]reliable[/b] for control/state changes that must arrive[/p]
+[p]• Use [b]unreliable[/b] for frequent updates where newest value replaces old[/p]
+[p]• Use [b]unreliable_ordered[/b] for sequences/deltas that depend on order[/p]
+"
+width = 350.0
+max_height = 320.0
+
+[node name="Transfer Mode" type="OptionButton" parent="Event Bridge/EventBridgeTabContainer/Events/Event Details/ScrollContainer/VBoxContainer/HBoxContainer4"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TRANSFER_MODE_TT"
+selected = 0
+item_count = 3
+popup/item_0/text = "reliable"
+popup/item_0/id = 0
+popup/item_1/text = "unreliable"
+popup/item_1/id = 1
+popup/item_2/text = "unreliable_ordered"
+popup/item_2/id = 2
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="Event Bridge/EventBridgeTabContainer/Events/Event Details/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TransferChannelLabel" type="Label" parent="Event Bridge/EventBridgeTabContainer/Events/Event Details/ScrollContainer/VBoxContainer/HBoxContainer5"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(225, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = " "
+mouse_filter = 0
+text = "Transfer Channel: "
+script = ExtResource("11_d1uba")
+tooltip_title = "Transfer Channel Settings"
+tooltip_bbcode = "Integer \"lane\" used for per-channel ordering. Ordering applies only [i]within the same channel[/i] between a sender and a peer.
+
+[p]• Keep one event family (or tightly related sequence) per channel[/p]
+[p]• Separate critical reliable traffic from spammy updates to avoid blocking[/p]
+[p]• For [b]unreliable_ordered[/b], a loss can drop subsequent packets in the same lane[/p]
+
+[b][color=#FFCD23]Avoid[/color][/b]
+
+[p]• Mixing unrelated flows on the same [i]unreliable_ordered[/i] channel[/p]
+[p]• Combining high-rate unreliable with reliable on one lane (can raise latency)[/p]
+[p]• Putting everything on channel 0[/p]
+
+[b][color=#FFCD23]Examples[/color][/b]
+
+[p]• Ch 0: reliable control (join/leave, match state)[/p]
+[p]• Ch 1: chat (reliable)[/p]
+[p]• Ch 2: movement snapshots (unreliable)[/p]
+[p]• Ch 3: sequenced VFX or deltas (unreliable_ordered)[/p]
+"
+width = 350.0
+max_height = 320.0
+
+[node name="Transfer Channel" type="SpinBox" parent="Event Bridge/EventBridgeTabContainer/Events/Event Details/ScrollContainer/VBoxContainer/HBoxContainer5"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TRANSFER_CHANNEL_TT"
+max_value = 32.0
+
+[node name="NetworkingWarning" type="RichTextLabel" parent="Event Bridge/EventBridgeTabContainer/Events/Event Details/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_mode = 2
+bbcode_enabled = true
+fit_content = true
+scroll_following = true
+context_menu_enabled = true
+selection_enabled = true
+
+[node name="Connections" type="VBoxContainer" parent="Event Bridge/EventBridgeTabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="ConnectionsFilter" type="LineEdit" parent="Event Bridge/EventBridgeTabContainer/Connections"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Search for Event "
+
+[node name="Connections Tree" type="Tree" parent="Event Bridge/EventBridgeTabContainer/Connections"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/parent_hl_line_color = Color(1, 0, 0, 1)
+theme_override_colors/children_hl_line_color = Color(0, 1, 0, 1)
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 5
+theme_override_constants/inner_item_margin_left = 10
+theme_override_constants/item_margin = 20
+theme_override_constants/draw_guides = 1
+theme_override_constants/draw_relationship_lines = 1
+theme_override_constants/relationship_line_width = 1
+theme_override_constants/parent_hl_line_width = 1
+theme_override_constants/children_hl_line_width = 1
+hide_root = true
+auto_tooltip = false
+
+[node name="InputDialog" type="AcceptDialog" parent="Event Bridge"]
+unique_name_in_owner = true
+oversampling_override = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Event Bridge/InputDialog"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 92.0
+offset_bottom = 51.0
+
+[node name="NameField" type="LineEdit" parent="Event Bridge/InputDialog/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ContextMenu" type="PopupMenu" parent="Event Bridge"]
+unique_name_in_owner = true
+oversampling_override = 1.0
+size = Vector2i(114, 132)
+item_count = 7
+item_0/text = "Category"
+item_0/icon = SubResource("DPITexture_4f7vc")
+item_0/id = 1
+item_1/id = -1
+item_1/separator = true
+item_2/text = "Event"
+item_2/icon = SubResource("DPITexture_4f7vc")
+item_2/id = 2
+item_3/id = -1
+item_3/separator = true
+item_4/text = "Rename"
+item_4/icon = SubResource("DPITexture_wema8")
+item_4/id = 3
+item_5/id = -1
+item_5/separator = true
+item_6/text = "Delete"
+item_6/icon = SubResource("DPITexture_05wib")
+item_6/id = 4
