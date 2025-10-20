@@ -157,8 +157,8 @@ func _load_icons():
 	icon_close           = _ed_icon("Close")
 	icon_debug           = _ed_icon("DebugNext")
 
-	# RPC-ish / signals 
-	icon_rpc_local       = _ed_icon("Slot")                 
+	# RPC-ish / signals
+	icon_rpc_local       = _ed_icon("Slot")
 	icon_rpc_remote      = _ed_icon("Signal")
 	icon_rpc_to_all      = _ed_icon("SignalsAndGroups")
 	icon_rpc_to_id       = _ed_icon("MemberSignal")
@@ -214,7 +214,7 @@ func _configure_ui():
 
 	event_bridge_tab_container.set_tab_icon(0, icon_category)
 	event_bridge_tab_container.set_tab_icon(1, icon_debug)
-	
+
 	# Repurpose the old toast close button as "Clear"
 	#toast_close_btn.text = "Clear"
 	#if not toast_close_btn.pressed.is_connected(_warn_clear):
@@ -225,12 +225,12 @@ func _configure_ui():
 	#toast_timer.stop()
 
 func _connect_signals():
-	
+
 	category_btn.pressed.connect(func():
 		pending_action = "category"
 		_open_input_dialog("Enter a category name")
 	)
-	
+
 	event_btn.pressed.connect(func():
 		if _get_selected_category() == null:
 			_warn_push("Select a category first.", "warning")
@@ -238,7 +238,7 @@ func _connect_signals():
 		pending_action = "event"
 		_open_input_dialog("Enter an event name")
 	)
-	
+
 	generate_btn.pressed.connect(refresh_all)
 	load_json_btn.pressed.connect(_on_load_json_pressed)
 	add_arg_btn.pressed.connect(_on_add_arg)
@@ -252,19 +252,19 @@ func _connect_signals():
 	transfer_mode_dropdown.item_selected.connect(_on_transfer_mode_changed)
 	transfer_channel_spinbox.value_changed.connect(_on_transfer_channel_changed)
 	event_tree.gui_input.connect(_on_tree_gui_input)
-	
+
 	#validator_field.text_changed.connect(func(new_text):
 		#if selected_category != null and selected_event_index >= 0:
 			#categories[selected_category][selected_event_index]["validator"] = new_text.strip_edges()
 			#_save_data()
 			#_update_preview()
 	#)
-	
+
 	event_bridge_tab_container.tab_changed.connect(func(idx: int):
 		if event_bridge_tab_container.get_tab_title(idx) == "Connections":
 			_refresh_connections()
 	)
-	
+
 	connections_filter.text_changed.connect(func(new_text):
 		_refresh_connections(new_text)
 	)
@@ -332,13 +332,13 @@ func _on_input_confirmed():
 	var name = name_field.text.strip_edges()
 	if name == "":
 		return
-		
+
 	if pending_action == "category":
 		if !categories.has(name):
 			categories[name] = []
 		else:
 			_warn_push("That category already exists.", "warning")
-	
+
 	elif pending_action == "event":
 		var cat = _get_selected_category()
 		if cat != null:
@@ -350,7 +350,7 @@ func _on_input_confirmed():
 				})
 			else:
 				_warn_push("This event already exists in the selected category.", "warning")
-	
+
 	elif pending_action == "rename":
 		if selected_item:
 			var parent = selected_item.get_parent()
@@ -365,8 +365,8 @@ func _on_input_confirmed():
 					if e["name"] == selected_item.get_text(0):
 						e["name"] = name
 						break
-	
-	#_warn_render()					
+
+	#_warn_render()
 	_refresh_tree()
 	_save_data()
 
@@ -765,7 +765,7 @@ func _on_target_changed(index):
 	if rpc_targets.get_item_text(index) == "to_id":
 		_warn_push("When target is 'to_id', the handler also receives 'peer_id: int' as the last argument.", "info")
 		print("When target is 'to_id', the handler also receives 'peer_id: int' as the last argument. No need to set a 'peer_id' as custom argument", "info")
-		
+
 	#_warn_render()
 	_save_data()
 	_update_preview()
@@ -781,7 +781,7 @@ func _on_mode_changed(index):
 		print("[EventBridge] Mode changed to:", mode_dropdown.get_item_text(index))
 
 func _on_sync_changed(index):
-	
+
 	if selected_category == null or selected_event_index < 0:
 		return
 	categories[selected_category][selected_event_index]["sync"] = sync_dropdown.get_item_text(index)
@@ -832,7 +832,7 @@ func _on_remove_arg(idx):
 
 func _update_preview() -> void:
 	if selected_category == null or selected_event_index < 0:
-		#TODO Check this 
+		#TODO Check this
 		networking_warning.visible = false
 		return
 
@@ -1248,7 +1248,7 @@ func _get_icon_for_target(rpc: String) -> Texture2D:
 # Helper to get Godot EditorIcons
 func _ed_icon(name: String) -> Texture2D:
 	var root := get_tree().get_root() # EditorNode in the editor
-	
+
 	if Engine.is_editor_hint() and root and root.has_theme_icon(name, "EditorIcons"):
 		return root.get_theme_icon(name, "EditorIcons")
 

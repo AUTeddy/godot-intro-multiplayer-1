@@ -18,7 +18,7 @@ var dock
 func _enter_tree():
 
 	ProjectSettings.set("addons/event_bridge/debug", false)
-	
+
 	#if not ProjectSettings.has_setting("addons/event_bridge/debug"):
 		#ProjectSettings.set_setting("addons/event_bridge/debug", false)
 
