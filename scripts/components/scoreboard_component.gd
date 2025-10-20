@@ -11,7 +11,9 @@ const player2_label = "Player 2\n%s"
 func _ready() -> void:
 	play_again_button.pressed.connect(_play_again)
 	
-	MatchManager.scores_updated.connect(_update_scores)
+	EventManager.on_game_report_score(_update_scores)
+	
+	#MatchManager.scores_updated.connect(_update_scores)
 	MatchManager.game_ended.connect(_game_over)
 	MatchManager.game_restarted.connect(_reset_scoreboard)
 	

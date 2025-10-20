@@ -8,9 +8,11 @@ extends Node
 var DEBUG := ProjectSettings.get_setting("event_bridge/debug")
 
 var MainMenu: EventBusAutoload.Namespace
+var Game: EventBusAutoload.Namespace
 
 func _ready() -> void:
 	MainMenu = EventBus.get_namespace("MainMenu")
+	Game = EventBus.get_namespace("Game")
 
 # --- Event API ---
 
@@ -36,9 +38,31 @@ func on_mainmenu_send_test_message(callback: Callable) -> void:
 func off_mainmenu_send_test_message(callback: Callable) -> void:
 	MainMenu.off("send_test_message", callback)
 
+## Event: Game::report_score ---[br]
+## Target: to_server | Mode: authority | Sync: call_local | Transfer: reliable | Channel: 0 [br][br]
+## Usage (emit): [br]
+##     EventManager.game_report_score(scores)
+func game_report_score(scores: Dictionary) -> void:
+	Game.to_server("report_score", [scores])
+
+# Subscribe with callback signature: func(scores: Dictionary) -> void
+## Usage (subscribe):[br]
+##     var cb := func(scores: Dictionary) -> void:
+##     EventManager.on_game_report_score(cb)[br]
+##     [br]Later, to unsubscribe (keep the same Callable reference):[br]
+##     EventManager.off_game_report_score(cb)
+##     [br][br]One-liner subscribe example:[br]
+##     EventManager.on_game_report_score(func(scores: Dictionary) -> void: print("game_report_score:", scores))[br]
+func on_game_report_score(callback: Callable) -> void:
+	Game.on("report_score", callback)
+
+# Unsubscribe the same Callable you used in on_game_report_score
+func off_game_report_score(callback: Callable) -> void:
+	Game.off("report_score", callback)
+
 # --- Disconnect all handlers across all namespaces ---
 func off_all() -> void:
-	for ns in ["MainMenu"]:
+	for ns in ["MainMenu", "Game"]:
 		if get(ns) != null:
 			get(ns).off_all()
 
@@ -51,6 +75,9 @@ func off_namespace(ns_name: String) -> void:
 func off_MainMenu() -> void:
 	if MainMenu != null:
 		MainMenu.off_all()
+func off_Game() -> void:
+	if Game != null:
+		Game.off_all()
 
 # --- Validator Handling ---
 func _validate_event(event_name: String, args: Array) -> bool:

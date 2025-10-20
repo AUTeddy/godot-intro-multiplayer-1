@@ -5,6 +5,16 @@
 [resource]
 script = ExtResource("1_kyp0b")
 categories = {
+"Game": [{
+"args": [{
+"name": "scores",
+"type": "Dictionary"
+}],
+"mode": "authority",
+"name": "report_score",
+"sync": "call_local",
+"target": "to_server"
+}],
 "MainMenu": [{
 "args": [{
 "name": "message",
@@ -14,7 +24,8 @@ categories = {
 "target": "to_id"
 }]
 }
-category_order = ["MainMenu"]
+category_order = ["MainMenu", "Game"]
 event_orders = {
+"Game": ["report_score"],
 "MainMenu": ["send_test_message"]
 }

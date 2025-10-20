@@ -21,9 +21,11 @@ func player_died(killed_player_name: String):
 				_game_over.rpc(player_name, _player_scores)
 				return 
 
-	_report_score.rpc(_player_scores)
+	#_report_score.rpc(_player_scores)
+	EventManager.game_report_score(_player_scores)
+	
 
-@rpc("authority", "call_local", "reliable")
+#@rpc("authority", "call_local", "reliable")
 func _report_score(scores):
 	scores_updated.emit(scores)
 

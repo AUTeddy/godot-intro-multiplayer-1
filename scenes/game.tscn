@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c7hx085d3my3g"]
+[gd_scene load_steps=11 format=3 uid="uid://c7hx085d3my3g"]
 
 [ext_resource type="Script" uid="uid://decxidnrg6wt2" path="res://scripts/game.gd" id="1_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://bc17l4opfv77q" path="res://assets/game-bg/moon_sky.png" id="1_uwrxv"]
@@ -9,6 +9,14 @@
 [ext_resource type="Texture2D" uid="uid://dxci2ckfqp2yr" path="res://assets/game-bg/moon_front.png" id="5_iywne"]
 [ext_resource type="Texture2D" uid="uid://daqskdqetu3jm" path="res://assets/game-bg/moon_floor.png" id="6_p57ef"]
 [ext_resource type="Script" uid="uid://qpijsveyphtf" path="res://scripts/components/scoreboard_component.gd" id="9_0tnpc"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_0tnpc"]
+properties/0/path = NodePath("GameMenu/Panel/Player1Score:text")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("GameMenu/Panel/Player2Score:text")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_u5sy4")
@@ -139,5 +147,9 @@ player1_score = NodePath("../GameMenu/Panel/Player1Score")
 player2_score = NodePath("../GameMenu/Panel/Player2Score")
 play_again_button = NodePath("../GameMenu/Panel/PlayAgain")
 metadata/_custom_type_script = "uid://qpijsveyphtf"
+
+[node name="ScoreboardSynchronizer" type="MultiplayerSynchronizer" parent="ScoreboardComponent"]
+root_path = NodePath("../..")
+replication_config = SubResource("SceneReplicationConfig_0tnpc")
 
 [connection signal="pressed" from="GameMenu/Panel/HBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
