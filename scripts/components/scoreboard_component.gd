@@ -12,9 +12,10 @@ func _ready() -> void:
 	play_again_button.pressed.connect(_play_again)
 	
 	EventManager.on_game_report_score(_update_scores)
+	EventManager.on_game_game_over(_game_over)
 	
 	#MatchManager.scores_updated.connect(_update_scores)
-	MatchManager.game_ended.connect(_game_over)
+	#MatchManager.game_ended.connect(_game_over)
 	MatchManager.game_restarted.connect(_reset_scoreboard)
 	
 func _update_scores(scores):
@@ -24,7 +25,7 @@ func _update_scores(scores):
 		else:
 			player2_score.text = player2_label % scores[player_name]
 
-func _game_over(winning_player_name: String):
+func _game_over(winning_player_name: String, final_scores: Dictionary):
 	if winning_player_name == "1":
 		player1_score.text = player1_score.text + "\nWINNER!"
 	else:

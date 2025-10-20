@@ -10,7 +10,7 @@ config_version=5
 
 [addons]
 
-event_bridge/debug=false
+event_bridge/debug=true
 
 [application]
 
@@ -21,9 +21,9 @@ boot_splash/image="uid://dyh6r887he05y"
 
 [autoload]
 
-NetworkManager="*res://scripts/network/network_manager.gd"
 EventBus="*res://addons/event_bridge/autoload/event_bus.gd"
 EventBridgeLogger="*res://addons/event_bridge/autoload/event_bridge_logger.gd"
+NetworkManager="*res://scripts/network/network_manager.gd"
 EventManager="*res://addons/event_bridge/generated/EventManager.gd"
 MatchManager="*res://scripts/multiplayer/match_manager.gd"
 

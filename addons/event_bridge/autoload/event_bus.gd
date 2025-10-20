@@ -4,7 +4,8 @@ extends Node
 
 const JSON_PATH = "res://addons/event_bridge/generated/event_registry.json"
 
-var DEBUG := ProjectSettings.get_setting("event_bridge/debug")
+#var DEBUG := ProjectSettings.get_setting("event_bridge/debug")
+var DEBUG := false 
 
 #enum LogLevel { INFO, WARN, ERROR }
 
@@ -119,6 +120,8 @@ func _ready():
 
 	global_initialized = true
 	_initialize_event_bus()
+	
+	print(DEBUG)
 
 
 func _initialize_event_bus():

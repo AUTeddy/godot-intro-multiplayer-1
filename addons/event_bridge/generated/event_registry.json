@@ -57,5 +57,16 @@
 			"transfer_channel": 0,
 			"transfer_mode": "reliable"
 		}
+	],
+	"Player": [
+		{
+			"args": [],
+			"mode": "any_peer",
+			"name": "spawn_projectile",
+			"sync": "call_remote",
+			"target": "to_server",
+			"transfer_channel": 0,
+			"transfer_mode": "reliable"
+		}
 	]
 }

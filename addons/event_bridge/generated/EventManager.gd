@@ -9,10 +9,12 @@ var DEBUG := ProjectSettings.get_setting("event_bridge/debug")
 
 var MainMenu: EventBusAutoload.Namespace
 var Game: EventBusAutoload.Namespace
+var Player: EventBusAutoload.Namespace
 
 func _ready() -> void:
 	MainMenu = EventBus.get_namespace("MainMenu")
 	Game = EventBus.get_namespace("Game")
+	Player = EventBus.get_namespace("Player")
 
 # --- Event API ---
 
@@ -104,9 +106,31 @@ func on_game_play_again(callback: Callable) -> void:
 func off_game_play_again(callback: Callable) -> void:
 	Game.off("play_again", callback)
 
+## Event: Player::spawn_projectile ---[br]
+## Target: to_server | Mode: any_peer | Sync: call_remote | Transfer: reliable | Channel: 0 [br][br]
+## Usage (emit): [br]
+##     EventManager.player_spawn_projectile()
+func player_spawn_projectile() -> void:
+	Player.to_server("spawn_projectile", [])
+
+# Subscribe with callback signature: func() -> void
+## Usage (subscribe):[br]
+##     var cb := func() -> void:
+##     EventManager.on_player_spawn_projectile(cb)[br]
+##     [br]Later, to unsubscribe (keep the same Callable reference):[br]
+##     EventManager.off_player_spawn_projectile(cb)
+##     [br][br]One-liner subscribe example:[br]
+##     EventManager.on_player_spawn_projectile(func() -> void: print("player_spawn_projectile fired"))[br]
+func on_player_spawn_projectile(callback: Callable) -> void:
+	Player.on("spawn_projectile", callback)
+
+# Unsubscribe the same Callable you used in on_player_spawn_projectile
+func off_player_spawn_projectile(callback: Callable) -> void:
+	Player.off("spawn_projectile", callback)
+
 # --- Disconnect all handlers across all namespaces ---
 func off_all() -> void:
-	for ns in ["MainMenu", "Game"]:
+	for ns in ["MainMenu", "Game", "Player"]:
 		if get(ns) != null:
 			get(ns).off_all()
 
@@ -122,6 +146,9 @@ func off_MainMenu() -> void:
 func off_Game() -> void:
 	if Game != null:
 		Game.off_all()
+func off_Player() -> void:
+	if Player != null:
+		Player.off_all()
 
 # --- Validator Handling ---
 func _validate_event(event_name: String, args: Array) -> bool:

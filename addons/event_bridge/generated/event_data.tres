@@ -40,10 +40,17 @@ categories = {
 }],
 "name": "send_test_message",
 "target": "to_id"
+}],
+"Player": [{
+"args": [],
+"name": "spawn_projectile",
+"sync": "call_remote",
+"target": "to_server"
 }]
 }
-category_order = ["MainMenu", "Game"]
+category_order = ["MainMenu", "Game", "Player"]
 event_orders = {
 "Game": ["report_score", "game_over", "play_again"],
-"MainMenu": ["send_test_message"]
+"MainMenu": ["send_test_message"],
+"Player": ["spawn_projectile"]
 }

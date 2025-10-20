@@ -12,6 +12,8 @@ const ship_types: Array[String] = ["default", "ship2"]
 @export var attribute_component: AttributeComponent
 @export var health_bar: TextureProgressBar
 
+@onready var weapon: Node2D = $Weapon
+
 var _health_colors = [Color.RED, Color.ORANGE_RED, Color.YELLOW, Color.GREEN_YELLOW, Color.LIME_GREEN]
 var _velocity: Vector2
 
@@ -19,6 +21,7 @@ func _enter_tree() -> void:
 	player_input.set_multiplayer_authority(str(name).to_int())
 
 func _ready() -> void:
+
 	input_synchronizer.set_visibility_for(1, true)
 	player_sprite.animation = selected_ship
 	
@@ -55,13 +58,3 @@ func _player_no_health():
 	
 func reset_player():
 	attribute_component.reset_health()
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
