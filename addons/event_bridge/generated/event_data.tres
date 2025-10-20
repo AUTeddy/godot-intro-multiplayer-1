@@ -14,6 +14,18 @@ categories = {
 "name": "report_score",
 "sync": "call_local",
 "target": "to_server"
+}, {
+"args": [{
+"name": "winning_player_name",
+"type": "String"
+}, {
+"name": "final_scores",
+"type": "Dictionary"
+}],
+"mode": "authority",
+"name": "game_over",
+"sync": "call_remote",
+"target": "to_server"
 }],
 "MainMenu": [{
 "args": [{
@@ -26,6 +38,6 @@ categories = {
 }
 category_order = ["MainMenu", "Game"]
 event_orders = {
-"Game": ["report_score"],
+"Game": ["report_score", "game_over"],
 "MainMenu": ["send_test_message"]
 }

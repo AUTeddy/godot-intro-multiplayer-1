@@ -60,6 +60,28 @@ func on_game_report_score(callback: Callable) -> void:
 func off_game_report_score(callback: Callable) -> void:
 	Game.off("report_score", callback)
 
+## Event: Game::game_over ---[br]
+## Target: to_server | Mode: authority | Sync: call_remote | Transfer: reliable | Channel: 0 [br][br]
+## Usage (emit): [br]
+##     EventManager.game_game_over(winning_player_name, final_scores)
+func game_game_over(winning_player_name: String, final_scores: Dictionary) -> void:
+	Game.to_server("game_over", [winning_player_name, final_scores])
+
+# Subscribe with callback signature: func(winning_player_name: String, final_scores: Dictionary) -> void
+## Usage (subscribe):[br]
+##     var cb := func(winning_player_name: String, final_scores: Dictionary) -> void:
+##     EventManager.on_game_game_over(cb)[br]
+##     [br]Later, to unsubscribe (keep the same Callable reference):[br]
+##     EventManager.off_game_game_over(cb)
+##     [br][br]One-liner subscribe example:[br]
+##     EventManager.on_game_game_over(func(winning_player_name: String, final_scores: Dictionary) -> void: print("game_game_over:", winning_player_name, final_scores))[br]
+func on_game_game_over(callback: Callable) -> void:
+	Game.on("game_over", callback)
+
+# Unsubscribe the same Callable you used in on_game_game_over
+func off_game_game_over(callback: Callable) -> void:
+	Game.off("game_over", callback)
+
 # --- Disconnect all handlers across all namespaces ---
 func off_all() -> void:
 	for ns in ["MainMenu", "Game"]:

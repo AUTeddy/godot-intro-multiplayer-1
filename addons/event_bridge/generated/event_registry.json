@@ -13,6 +13,24 @@
 			"target": "to_server",
 			"transfer_channel": 0,
 			"transfer_mode": "reliable"
+		},
+		{
+			"args": [
+				{
+					"name": "winning_player_name",
+					"type": "String"
+				},
+				{
+					"name": "final_scores",
+					"type": "Dictionary"
+				}
+			],
+			"mode": "authority",
+			"name": "game_over",
+			"sync": "call_remote",
+			"target": "to_server",
+			"transfer_channel": 0,
+			"transfer_mode": "reliable"
 		}
 	],
 	"MainMenu": [

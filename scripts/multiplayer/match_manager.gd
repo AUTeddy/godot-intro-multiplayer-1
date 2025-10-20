@@ -10,6 +10,9 @@ var game_paused = false
 
 var _player_scores = {}
 
+func _ready() -> void:
+	EventManager.on_game_game_over(_game_over)
+
 func player_died(killed_player_name: String):
 	print("Player %s died" % killed_player_name)
 	
@@ -18,7 +21,8 @@ func player_died(killed_player_name: String):
 			_player_scores[player_name] = _player_scores[player_name] + 1
 
 			if _player_scores[player_name] >= WINNING_SCORE:
-				_game_over.rpc(player_name, _player_scores)
+				#_game_over.rpc(player_name, _player_scores)
+				EventManager.game_game_over(player_name, _player_scores)
 				return 
 
 	#_report_score.rpc(_player_scores)
@@ -29,7 +33,7 @@ func player_died(killed_player_name: String):
 func _report_score(scores):
 	scores_updated.emit(scores)
 
-@rpc("authority", "call_local", "reliable")
+#@rpc("authority", "call_local", "reliable")
 func _game_over(winning_player_name: String, final_scores):
 	game_paused = true
 	scores_updated.emit(final_scores)
