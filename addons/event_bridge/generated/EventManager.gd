@@ -7,242 +7,38 @@ extends Node
 
 var DEBUG := ProjectSettings.get_setting("event_bridge/debug")
 
-var Clients: EventBusAutoload.Namespace
-var Game: EventBusAutoload.Namespace
-var Lobby: EventBusAutoload.Namespace
-var Server: EventBusAutoload.Namespace
+var MainMenu: EventBusAutoload.Namespace
 
 func _ready() -> void:
-	Clients = EventBus.get_namespace("Clients")
-	Game = EventBus.get_namespace("Game")
-	Lobby = EventBus.get_namespace("Lobby")
-	Server = EventBus.get_namespace("Server")
+	MainMenu = EventBus.get_namespace("MainMenu")
 
 # --- Event API ---
 
-## Event: Clients::press_key_h ---[br]
-## Target: to_server | Mode: authority | Sync: call_remote | Transfer: reliable | Channel: 1 [br][br]
+## Event: MainMenu::send_test_message ---[br]
+## Target: to_id | Mode: any_peer | Sync: call_remote | Transfer: reliable | Channel: 0 [br][br]
 ## Usage (emit): [br]
-##     EventManager.clients_press_key_h(player_id)
-func clients_press_key_h(player_id: int) -> void:
-	Clients.to_server("press_key_h", [player_id])
+##     EventManager.mainmenu_send_test_message(message, peer_id)
+func mainmenu_send_test_message(message: String, peer_id: int) -> void:
+	MainMenu.to_id(peer_id, "send_test_message", [message])
 
-# Subscribe with callback signature: func(player_id: int) -> void
+# Subscribe with callback signature: func(message: String) -> void
 ## Usage (subscribe):[br]
-##     var cb := func(player_id: int) -> void:
-##     EventManager.on_clients_press_key_h(cb)[br]
+##     var cb := func(message: String) -> void:
+##     EventManager.on_mainmenu_send_test_message(cb)[br]
 ##     [br]Later, to unsubscribe (keep the same Callable reference):[br]
-##     EventManager.off_clients_press_key_h(cb)
+##     EventManager.off_mainmenu_send_test_message(cb)
 ##     [br][br]One-liner subscribe example:[br]
-##     EventManager.on_clients_press_key_h(func(player_id: int) -> void: print("clients_press_key_h:", player_id))[br]
-func on_clients_press_key_h(callback: Callable) -> void:
-	Clients.on("press_key_h", callback)
+##     EventManager.on_mainmenu_send_test_message(func(message: String) -> void: print("mainmenu_send_test_message:", message))[br]
+func on_mainmenu_send_test_message(callback: Callable) -> void:
+	MainMenu.on("send_test_message", callback)
 
-# Unsubscribe the same Callable you used in on_clients_press_key_h
-func off_clients_press_key_h(callback: Callable) -> void:
-	Clients.off("press_key_h", callback)
-
-## Event: Clients::key_pressed ---[br]
-## Target: to_server | Mode: authority | Sync: call_remote | Transfer: reliable | Channel: 0 [br][br]
-## Usage (emit): [br]
-##     EventManager.clients_key_pressed(client_id, key_code, key_name, key_mods)
-func clients_key_pressed(client_id: int, key_code: int, key_name: String, key_mods: Array) -> void:
-	Clients.to_server("key_pressed", [client_id, key_code, key_name, key_mods])
-
-# Subscribe with callback signature: func(client_id: int, key_code: int, key_name: String, key_mods: Array) -> void
-## Usage (subscribe):[br]
-##     var cb := func(client_id: int, key_code: int, key_name: String, key_mods: Array) -> void:
-##     EventManager.on_clients_key_pressed(cb)[br]
-##     [br]Later, to unsubscribe (keep the same Callable reference):[br]
-##     EventManager.off_clients_key_pressed(cb)
-##     [br][br]One-liner subscribe example:[br]
-##     EventManager.on_clients_key_pressed(func(client_id: int, key_code: int, key_name: String, key_mods: Array) -> void: print("clients_key_pressed:", client_id, key_code, key_name, key_mods))[br]
-func on_clients_key_pressed(callback: Callable) -> void:
-	Clients.on("key_pressed", callback)
-
-# Unsubscribe the same Callable you used in on_clients_key_pressed
-func off_clients_key_pressed(callback: Callable) -> void:
-	Clients.off("key_pressed", callback)
-
-## Event: Game::request_roll ---[br]
-## Target: to_server | Mode: authority | Sync: call_remote | Transfer: reliable | Channel: 0 [br][br]
-## Usage (emit): [br]
-##     EventManager.game_request_roll()
-func game_request_roll() -> void:
-	Game.to_server("request_roll", [])
-
-# Subscribe with callback signature: func() -> void
-## Usage (subscribe):[br]
-##     var cb := func() -> void:
-##     EventManager.on_game_request_roll(cb)[br]
-##     [br]Later, to unsubscribe (keep the same Callable reference):[br]
-##     EventManager.off_game_request_roll(cb)
-##     [br][br]One-liner subscribe example:[br]
-##     EventManager.on_game_request_roll(func() -> void: print("game_request_roll fired"))[br]
-func on_game_request_roll(callback: Callable) -> void:
-	Game.on("request_roll", callback)
-
-# Unsubscribe the same Callable you used in on_game_request_roll
-func off_game_request_roll(callback: Callable) -> void:
-	Game.off("request_roll", callback)
-
-## Event: Lobby::ping ---[br]
-## Target: to_all | Mode: authority | Sync: call_remote | Transfer: reliable | Channel: 0 [br][br]
-## Usage (emit): [br]
-##     EventManager.lobby_ping()
-func lobby_ping() -> void:
-	Lobby.to_all("ping", [])
-
-# Subscribe with callback signature: func() -> void
-## Usage (subscribe):[br]
-##     var cb := func() -> void:
-##     EventManager.on_lobby_ping(cb)[br]
-##     [br]Later, to unsubscribe (keep the same Callable reference):[br]
-##     EventManager.off_lobby_ping(cb)
-##     [br][br]One-liner subscribe example:[br]
-##     EventManager.on_lobby_ping(func() -> void: print("lobby_ping fired"))[br]
-func on_lobby_ping(callback: Callable) -> void:
-	Lobby.on("ping", callback)
-
-# Unsubscribe the same Callable you used in on_lobby_ping
-func off_lobby_ping(callback: Callable) -> void:
-	Lobby.off("ping", callback)
-
-## Event: Lobby::pong ---[br]
-## Target: to_server | Mode: authority | Sync: call_remote | Transfer: reliable | Channel: 0 [br][br]
-## Usage (emit): [br]
-##     EventManager.lobby_pong(msg)
-func lobby_pong(msg: String) -> void:
-	Lobby.to_server("pong", [msg])
-
-# Subscribe with callback signature: func(msg: String) -> void
-## Usage (subscribe):[br]
-##     var cb := func(msg: String) -> void:
-##     EventManager.on_lobby_pong(cb)[br]
-##     [br]Later, to unsubscribe (keep the same Callable reference):[br]
-##     EventManager.off_lobby_pong(cb)
-##     [br][br]One-liner subscribe example:[br]
-##     EventManager.on_lobby_pong(func(msg: String) -> void: print("lobby_pong:", msg))[br]
-func on_lobby_pong(callback: Callable) -> void:
-	Lobby.on("pong", callback)
-
-# Unsubscribe the same Callable you used in on_lobby_pong
-func off_lobby_pong(callback: Callable) -> void:
-	Lobby.off("pong", callback)
-
-## Event: Server::welcome_to_client ---[br]
-## Target: to_id | Mode: authority | Sync: call_remote | Transfer: reliable | Channel: 0 [br][br]
-## Usage (emit): [br]
-##     EventManager.server_welcome_to_client(msg, peer_id)
-func server_welcome_to_client(msg: String, peer_id: int) -> void:
-	Server.to_id(peer_id, "welcome_to_client", [msg])
-
-# Subscribe with callback signature: func(msg: String) -> void
-## Usage (subscribe):[br]
-##     var cb := func(msg: String) -> void:
-##     EventManager.on_server_welcome_to_client(cb)[br]
-##     [br]Later, to unsubscribe (keep the same Callable reference):[br]
-##     EventManager.off_server_welcome_to_client(cb)
-##     [br][br]One-liner subscribe example:[br]
-##     EventManager.on_server_welcome_to_client(func(msg: String) -> void: print("server_welcome_to_client:", msg))[br]
-func on_server_welcome_to_client(callback: Callable) -> void:
-	Server.on("welcome_to_client", callback)
-
-# Unsubscribe the same Callable you used in on_server_welcome_to_client
-func off_server_welcome_to_client(callback: Callable) -> void:
-	Server.off("welcome_to_client", callback)
-
-## Event: Server::turn_started ---[br]
-## Target: to_all | Mode: authority | Sync: call_remote | Transfer: reliable | Channel: 0 [br][br]
-## Usage (emit): [br]
-##     EventManager.server_turn_started(player_id)
-func server_turn_started(player_id: int) -> void:
-	Server.to_all("turn_started", [player_id])
-
-# Subscribe with callback signature: func(player_id: int) -> void
-## Usage (subscribe):[br]
-##     var cb := func(player_id: int) -> void:
-##     EventManager.on_server_turn_started(cb)[br]
-##     [br]Later, to unsubscribe (keep the same Callable reference):[br]
-##     EventManager.off_server_turn_started(cb)
-##     [br][br]One-liner subscribe example:[br]
-##     EventManager.on_server_turn_started(func(player_id: int) -> void: print("server_turn_started:", player_id))[br]
-func on_server_turn_started(callback: Callable) -> void:
-	Server.on("turn_started", callback)
-
-# Unsubscribe the same Callable you used in on_server_turn_started
-func off_server_turn_started(callback: Callable) -> void:
-	Server.off("turn_started", callback)
-
-## Event: Server::dice_result ---[br]
-## Target: to_id | Mode: authority | Sync: call_remote | Transfer: reliable | Channel: 0 [br][br]
-## Usage (emit): [br]
-##     EventManager.server_dice_result(result, peer_id)
-func server_dice_result(result: int, peer_id: int) -> void:
-	Server.to_id(peer_id, "dice_result", [result])
-
-# Subscribe with callback signature: func(result: int) -> void
-## Usage (subscribe):[br]
-##     var cb := func(result: int) -> void:
-##     EventManager.on_server_dice_result(cb)[br]
-##     [br]Later, to unsubscribe (keep the same Callable reference):[br]
-##     EventManager.off_server_dice_result(cb)
-##     [br][br]One-liner subscribe example:[br]
-##     EventManager.on_server_dice_result(func(result: int) -> void: print("server_dice_result:", result))[br]
-func on_server_dice_result(callback: Callable) -> void:
-	Server.on("dice_result", callback)
-
-# Unsubscribe the same Callable you used in on_server_dice_result
-func off_server_dice_result(callback: Callable) -> void:
-	Server.off("dice_result", callback)
-
-## Event: Server::dice_broadcast ---[br]
-## Target: to_all | Mode: authority | Sync: call_remote | Transfer: reliable | Channel: 0 [br][br]
-## Usage (emit): [br]
-##     EventManager.server_dice_broadcast(player_id, result)
-func server_dice_broadcast(player_id: int, result: int) -> void:
-	Server.to_all("dice_broadcast", [player_id, result])
-
-# Subscribe with callback signature: func(player_id: int, result: int) -> void
-## Usage (subscribe):[br]
-##     var cb := func(player_id: int, result: int) -> void:
-##     EventManager.on_server_dice_broadcast(cb)[br]
-##     [br]Later, to unsubscribe (keep the same Callable reference):[br]
-##     EventManager.off_server_dice_broadcast(cb)
-##     [br][br]One-liner subscribe example:[br]
-##     EventManager.on_server_dice_broadcast(func(player_id: int, result: int) -> void: print("server_dice_broadcast:", player_id, result))[br]
-func on_server_dice_broadcast(callback: Callable) -> void:
-	Server.on("dice_broadcast", callback)
-
-# Unsubscribe the same Callable you used in on_server_dice_broadcast
-func off_server_dice_broadcast(callback: Callable) -> void:
-	Server.off("dice_broadcast", callback)
-
-## Event: Server::kick_client ---[br]
-## Target: to_id | Mode: authority | Sync: call_remote | Transfer: unreliable | Channel: 0 [br][br]
-## Usage (emit): [br]
-##     EventManager.server_kick_client(arg1, peer_id)
-func server_kick_client(arg1: String, peer_id: int) -> void:
-	Server.to_id(peer_id, "kick_client", [arg1])
-
-# Subscribe with callback signature: func(arg1: String) -> void
-## Usage (subscribe):[br]
-##     var cb := func(arg1: String) -> void:
-##     EventManager.on_server_kick_client(cb)[br]
-##     [br]Later, to unsubscribe (keep the same Callable reference):[br]
-##     EventManager.off_server_kick_client(cb)
-##     [br][br]One-liner subscribe example:[br]
-##     EventManager.on_server_kick_client(func(arg1: String) -> void: print("server_kick_client:", arg1))[br]
-func on_server_kick_client(callback: Callable) -> void:
-	Server.on("kick_client", callback)
-
-# Unsubscribe the same Callable you used in on_server_kick_client
-func off_server_kick_client(callback: Callable) -> void:
-	Server.off("kick_client", callback)
+# Unsubscribe the same Callable you used in on_mainmenu_send_test_message
+func off_mainmenu_send_test_message(callback: Callable) -> void:
+	MainMenu.off("send_test_message", callback)
 
 # --- Disconnect all handlers across all namespaces ---
 func off_all() -> void:
-	for ns in ["Clients", "Game", "Lobby", "Server"]:
+	for ns in ["MainMenu"]:
 		if get(ns) != null:
 			get(ns).off_all()
 
@@ -252,18 +48,9 @@ func off_namespace(ns_name: String) -> void:
 		get(ns_name).off_all()
 
 # --- Namespace-specific disconnect helpers ---
-func off_Clients() -> void:
-	if Clients != null:
-		Clients.off_all()
-func off_Game() -> void:
-	if Game != null:
-		Game.off_all()
-func off_Lobby() -> void:
-	if Lobby != null:
-		Lobby.off_all()
-func off_Server() -> void:
-	if Server != null:
-		Server.off_all()
+func off_MainMenu() -> void:
+	if MainMenu != null:
+		MainMenu.off_all()
 
 # --- Validator Handling ---
 func _validate_event(event_name: String, args: Array) -> bool:

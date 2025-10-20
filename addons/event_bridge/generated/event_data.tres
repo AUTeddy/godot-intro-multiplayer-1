@@ -5,131 +5,16 @@
 [resource]
 script = ExtResource("1_kyp0b")
 categories = {
-"Clients": [{
+"MainMenu": [{
 "args": [{
-"name": "player_id",
-"type": "int"
-}],
-"mode": "authority",
-"name": "press_key_h",
-"sync": "call_remote",
-"target": "to_server",
-"transfer_channel": 1.0,
-"transfer_mode": "reliable"
-}, {
-"args": [{
-"name": "client_id",
-"type": "int"
-}, {
-"name": "key_code",
-"type": "int"
-}, {
-"name": "key_name",
-"type": "String"
-}, {
-"name": "key_mods",
-"type": "Array"
-}],
-"mode": "authority",
-"name": "key_pressed",
-"sync": "call_remote",
-"target": "to_server",
-"transfer_channel": 0.0,
-"transfer_mode": "reliable"
-}],
-"Game": [{
-"args": [],
-"mode": "authority",
-"name": "request_roll",
-"sync": "call_remote",
-"target": "to_server",
-"transfer_channel": 0.0,
-"transfer_mode": "reliable"
-}],
-"Lobby": [{
-"args": [],
-"mode": "authority",
-"name": "ping",
-"sync": "call_remote",
-"target": "to_all",
-"transfer_channel": 0.0,
-"transfer_mode": "reliable"
-}, {
-"args": [{
-"name": "msg",
+"name": "message",
 "type": "String"
 }],
-"mode": "authority",
-"name": "pong",
-"sync": "call_remote",
-"target": "to_server",
-"transfer_channel": 0.0,
-"transfer_mode": "reliable"
-}],
-"Server": [{
-"args": [{
-"name": "msg",
-"type": "String"
-}],
-"mode": "authority",
-"name": "welcome_to_client",
-"sync": "call_remote",
-"target": "to_id",
-"transfer_channel": 0.0,
-"transfer_mode": "reliable"
-}, {
-"args": [{
-"name": "player_id",
-"type": "int"
-}],
-"mode": "authority",
-"name": "turn_started",
-"sync": "call_remote",
-"target": "to_all",
-"transfer_channel": 0.0,
-"transfer_mode": "reliable"
-}, {
-"args": [{
-"name": "result",
-"type": "int"
-}],
-"mode": "authority",
-"name": "dice_result",
-"sync": "call_remote",
-"target": "to_id",
-"transfer_channel": 0.0,
-"transfer_mode": "reliable"
-}, {
-"args": [{
-"name": "player_id",
-"type": "int"
-}, {
-"name": "result",
-"type": "int"
-}],
-"mode": "authority",
-"name": "dice_broadcast",
-"sync": "call_remote",
-"target": "to_all",
-"transfer_channel": 0.0,
-"transfer_mode": "reliable"
-}, {
-"args": [{
-"name": "arg1",
-"type": "String"
-}],
-"mode": "authority",
-"name": "kick_client",
-"sync": "call_remote",
-"target": "to_id",
-"transfer_channel": 0.0,
-"transfer_mode": "unreliable"
+"name": "send_test_message",
+"target": "to_id"
 }]
 }
-category_order = ["Clients", "Game", "Lobby", "Server"]
+category_order = ["MainMenu"]
 event_orders = {
-"Clients": ["press_key_h", "key_pressed"],
-"Game": ["request_roll"],
-"Lobby": ["ping", "pong"],
-"Server": ["welcome_to_client", "turn_started", "dice_result", "dice_broadcast", "kick_client"]
+"MainMenu": ["send_test_message"]
 }
