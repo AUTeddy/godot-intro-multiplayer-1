@@ -60,7 +60,12 @@
 	],
 	"Player": [
 		{
-			"args": [],
+			"args": [
+				{
+					"name": "by_peer",
+					"type": "int"
+				}
+			],
 			"mode": "any_peer",
 			"name": "spawn_projectile",
 			"sync": "call_remote",

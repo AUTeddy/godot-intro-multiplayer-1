@@ -20,17 +20,18 @@ var _velocity: Vector2
 func _enter_tree() -> void:
 	player_input.set_multiplayer_authority(str(name).to_int())
 
+
 func _ready() -> void:
 
 	input_synchronizer.set_visibility_for(1, true)
 	player_sprite.animation = selected_ship
-	
+
 	attribute_component.health_changed.connect(_health_changed)
-	
+
 	if is_multiplayer_authority():
 		attribute_component.no_health.connect(_player_no_health)
 		MatchManager.game_restarted.connect(reset_player)
-	
+
 func _physics_process(delta: float) -> void:
 	if get_tree().get_multiplayer().has_multiplayer_peer() and is_multiplayer_authority() and not MatchManager.game_paused:
 		var direction := player_input.input_dir
@@ -49,12 +50,12 @@ func _health_changed():
 	if attribute_component.health > 0:
 		var texture = health_bar.texture_progress
 		texture.gradient.colors[0] = _health_colors[attribute_component.health - 1]
-	
+
 func _player_no_health():
 	print("Player died")
 	MatchManager.player_died(name)
 	await get_tree().create_timer(1).timeout
 	reset_player()
-	
+
 func reset_player():
 	attribute_component.reset_health()

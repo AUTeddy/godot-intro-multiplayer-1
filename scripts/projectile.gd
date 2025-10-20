@@ -12,12 +12,12 @@ var fired_by_name: String
 func _ready() -> void:
 	if flip_dir > 0:
 		projectile_sprite.flip_h = true
-	
+
 	if is_multiplayer_authority():
 		_visible_on_screen_notifier_2d.screen_exited.connect(queue_free)
-		
+
 	_hitbox_component.hit_hurtbox.connect(_hit_hurtbox)
-	
+
 func _physics_process(delta: float) -> void:
 	if is_multiplayer_authority():
 		var dist = speed * delta
@@ -26,6 +26,6 @@ func _physics_process(delta: float) -> void:
 func _hit_hurtbox(hurtbox: HurtboxComponent) -> void:
 	projectile_sprite.animation = "explode"
 	speed = 0
-	
+
 	if is_multiplayer_authority() and not projectile_sprite.animation_finished.has_connections():
 		projectile_sprite.animation_finished.connect(queue_free)

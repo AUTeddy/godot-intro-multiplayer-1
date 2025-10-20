@@ -109,18 +109,18 @@ func off_game_play_again(callback: Callable) -> void:
 ## Event: Player::spawn_projectile ---[br]
 ## Target: to_server | Mode: any_peer | Sync: call_remote | Transfer: reliable | Channel: 0 [br][br]
 ## Usage (emit): [br]
-##     EventManager.player_spawn_projectile()
-func player_spawn_projectile() -> void:
-	Player.to_server("spawn_projectile", [])
+##     EventManager.player_spawn_projectile(by_peer)
+func player_spawn_projectile(by_peer: int) -> void:
+	Player.to_server("spawn_projectile", [by_peer])
 
-# Subscribe with callback signature: func() -> void
+# Subscribe with callback signature: func(by_peer: int) -> void
 ## Usage (subscribe):[br]
-##     var cb := func() -> void:
+##     var cb := func(by_peer: int) -> void:
 ##     EventManager.on_player_spawn_projectile(cb)[br]
 ##     [br]Later, to unsubscribe (keep the same Callable reference):[br]
 ##     EventManager.off_player_spawn_projectile(cb)
 ##     [br][br]One-liner subscribe example:[br]
-##     EventManager.on_player_spawn_projectile(func() -> void: print("player_spawn_projectile fired"))[br]
+##     EventManager.on_player_spawn_projectile(func(by_peer: int) -> void: print("player_spawn_projectile:", by_peer))[br]
 func on_player_spawn_projectile(callback: Callable) -> void:
 	Player.on("spawn_projectile", callback)
 
