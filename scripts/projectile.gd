@@ -23,7 +23,7 @@ func _physics_process(delta: float) -> void:
 		var dist = speed * delta
 		translate(Vector2(flip_dir * dist, 0))
 
-func _hit_hurtbox(hurtbox: HurtboxComponent) -> void:
+func _hit_hurtbox(_hurtbox: HurtboxComponent) -> void:
 	projectile_sprite.animation = "explode"
 	speed = 0
 

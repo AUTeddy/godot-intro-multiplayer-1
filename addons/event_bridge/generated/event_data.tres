@@ -13,7 +13,7 @@ categories = {
 "mode": "authority",
 "name": "report_score",
 "sync": "call_local",
-"target": "to_server"
+"target": "to_all"
 }, {
 "args": [{
 "name": "winning_player_name",
@@ -25,13 +25,13 @@ categories = {
 "mode": "authority",
 "name": "game_over",
 "sync": "call_remote",
-"target": "to_server"
+"target": "to_all"
 }, {
 "args": [],
 "mode": "authority",
 "name": "play_again",
 "sync": "call_local",
-"target": "to_server"
+"target": "to_all"
 }],
 "MainMenu": [{
 "args": [{

@@ -25,11 +25,11 @@ func _update_scores(scores):
 		else:
 			player2_score.text = player2_label % scores[player_name]
 
-func _game_over(winning_player_name: String, final_scores: Dictionary):
+func _game_over(winning_player_name: String, _final_scores: Dictionary):
 	if winning_player_name == "1":
-		player1_score.text = player1_score.text + "\nWINNER!" + str(final_scores)
+		player1_score.text = player1_score.text + "\nWINNER!" 
 	else:
-		player2_score.text = player2_score.text + "\nWINNER!" + str(final_scores)
+		player2_score.text = player2_score.text + "\nWINNER!"
 
 	if is_multiplayer_authority():
 		play_again_button.visible = true

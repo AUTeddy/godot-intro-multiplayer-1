@@ -10,7 +10,7 @@
 			"mode": "authority",
 			"name": "report_score",
 			"sync": "call_local",
-			"target": "to_server",
+			"target": "to_all",
 			"transfer_channel": 0,
 			"transfer_mode": "reliable"
 		},
@@ -28,7 +28,7 @@
 			"mode": "authority",
 			"name": "game_over",
 			"sync": "call_remote",
-			"target": "to_server",
+			"target": "to_all",
 			"transfer_channel": 0,
 			"transfer_mode": "reliable"
 		},
@@ -37,7 +37,7 @@
 			"mode": "authority",
 			"name": "play_again",
 			"sync": "call_local",
-			"target": "to_server",
+			"target": "to_all",
 			"transfer_channel": 0,
 			"transfer_mode": "reliable"
 		}

@@ -41,11 +41,11 @@ func off_mainmenu_send_test_message(callback: Callable) -> void:
 	MainMenu.off("send_test_message", callback)
 
 ## Event: Game::report_score ---[br]
-## Target: to_server | Mode: authority | Sync: call_local | Transfer: reliable | Channel: 0 [br][br]
+## Target: to_all | Mode: authority | Sync: call_local | Transfer: reliable | Channel: 0 [br][br]
 ## Usage (emit): [br]
 ##     EventManager.game_report_score(scores)
 func game_report_score(scores: Dictionary) -> void:
-	Game.to_server("report_score", [scores])
+	Game.to_all("report_score", [scores])
 
 # Subscribe with callback signature: func(scores: Dictionary) -> void
 ## Usage (subscribe):[br]
@@ -63,11 +63,11 @@ func off_game_report_score(callback: Callable) -> void:
 	Game.off("report_score", callback)
 
 ## Event: Game::game_over ---[br]
-## Target: to_server | Mode: authority | Sync: call_remote | Transfer: reliable | Channel: 0 [br][br]
+## Target: to_all | Mode: authority | Sync: call_remote | Transfer: reliable | Channel: 0 [br][br]
 ## Usage (emit): [br]
 ##     EventManager.game_game_over(winning_player_name, final_scores)
 func game_game_over(winning_player_name: String, final_scores: Dictionary) -> void:
-	Game.to_server("game_over", [winning_player_name, final_scores])
+	Game.to_all("game_over", [winning_player_name, final_scores])
 
 # Subscribe with callback signature: func(winning_player_name: String, final_scores: Dictionary) -> void
 ## Usage (subscribe):[br]
@@ -85,11 +85,11 @@ func off_game_game_over(callback: Callable) -> void:
 	Game.off("game_over", callback)
 
 ## Event: Game::play_again ---[br]
-## Target: to_server | Mode: authority | Sync: call_local | Transfer: reliable | Channel: 0 [br][br]
+## Target: to_all | Mode: authority | Sync: call_local | Transfer: reliable | Channel: 0 [br][br]
 ## Usage (emit): [br]
 ##     EventManager.game_play_again()
 func game_play_again() -> void:
-	Game.to_server("play_again", [])
+	Game.to_all("play_again", [])
 
 # Subscribe with callback signature: func() -> void
 ## Usage (subscribe):[br]
