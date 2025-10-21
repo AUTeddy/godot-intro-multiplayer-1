@@ -27,9 +27,9 @@ func _update_scores(scores):
 
 func _game_over(winning_player_name: String, final_scores: Dictionary):
 	if winning_player_name == "1":
-		player1_score.text = player1_score.text + "\nWINNER!"
+		player1_score.text = player1_score.text + "\nWINNER!" + str(final_scores)
 	else:
-		player2_score.text = player2_score.text + "\nWINNER!"
+		player2_score.text = player2_score.text + "\nWINNER!" + str(final_scores)
 
 	if is_multiplayer_authority():
 		play_again_button.visible = true

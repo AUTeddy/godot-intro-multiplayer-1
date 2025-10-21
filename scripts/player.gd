@@ -44,6 +44,7 @@ func _physics_process(delta: float) -> void:
 
 		translate(_velocity * delta)
 
+
 func _health_changed():
 	health_bar.value = attribute_component.health
 
@@ -51,8 +52,9 @@ func _health_changed():
 		var texture = health_bar.texture_progress
 		texture.gradient.colors[0] = _health_colors[attribute_component.health - 1]
 
+
 func _player_no_health():
-	print("Player died")
+	print("Player no health")
 	MatchManager.player_died(name)
 	await get_tree().create_timer(1).timeout
 	reset_player()

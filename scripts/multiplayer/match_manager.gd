@@ -35,7 +35,7 @@ func _report_score(scores):
 	scores_updated.emit(scores)
 
 #@rpc("authority", "call_local", "reliable")
-func _game_over(winning_player_name: String, final_scores):
+func _game_over(winning_player_name: String, final_scores: Dictionary):
 	game_paused = true
 	scores_updated.emit(final_scores)
 	game_ended.emit(winning_player_name)
